@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - 8080:80
+    depends_on:
+      - node
+    networks:
+      - network-fc
+
+  node:
+    build:
+      context: ./node
+    container_name: node
+    depends_on:
+      - db
+    networks:
+      - network-fc
+
+  db:
+    build:
+      context: ./mysql
+    container_name: mysql
+    tty: true
+    networks:
+      - network-fc
+    volumes: 
+      - ./mysql/db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodenginxdb
+      - MYSQL_ROOT_PASSWORD=root
+
+networks:
+  network-fc:
+    driver: bridge
