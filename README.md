@@ -1,6 +1,11 @@
 # docker-nginx-node-mysql
 
-## Comando para executar:
+### Comando para executar:
 ```
-docker-compose up [-d]
+docker-compose up
+```
+
+### URL
+```
+http://localhost:3000
 ```

@@ -14,13 +14,12 @@ const mysql = require('mysql2');
 
 const connection = mysql.createConnection(config);
 
-app.get('/', (req, res) => {
-  console.log('BATEU AQUI');
+app.get('/', (_, res) => {
   const name = faker.name.findName();
 
   connection.query(`INSERT INTO people (nome) VALUES ('${name}')`);
 
-  connection.query(`SELECT nome FROM people`, (error, nomes, fields) => {
+  connection.query(`SELECT nome FROM people`, (_e, nomes, _f) => {
     res.send(`
       <h1>Full Cycle Rocks!</h1>
       <ol>
@@ -31,5 +30,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Listen on port:', port);
+  console.log('Listening on port:', port);
 });
